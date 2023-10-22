@@ -51,7 +51,7 @@ public class GStructure {
 	
 	private int dataVersion;
 	
-	private UUID uuid;
+	private static UUID uuid;
 	
 	private List<GBlock> blocks;
 	
@@ -209,9 +209,15 @@ public class GStructure {
 		return nextBuildKey;
 	}
 	
+	public static UUID getUuid() {
+		return uuid;
+	}
+	
 	public void generate(Location location) {
 		generate(location, UUID.randomUUID());
 	}
+	
+	
 	
 	public void generate(Location location, UUID uuid) {
 		int buildKey = nextBuildKey++;
@@ -221,7 +227,7 @@ public class GStructure {
 			GBlock block = blocks.get(i);
 			
 			Location blockLocation = location.clone().add(new Vector(block.getX(), block.getY(), block.getZ()));
-			paint(blockLocation, palette.get(block.getState()), block.getNBT(), buildKey);
+			paint(blockLocation, palette.get(block.getState()), block.getNBT(), buildKey, uuid);
 		}
 		// add entities
 		for (int i = 0; i < entities.size(); i++) {
@@ -232,13 +238,13 @@ public class GStructure {
 	}
 	
 	@SuppressWarnings("deprecation")
-	private void paint(Location location, GPalette palette, BlockEntityTag nbt, int buildKey) {
+	private void paint(Location location, GPalette palette, BlockEntityTag nbt, int buildKey, UUID uuid) {
 				
 		
 		World world = location.getWorld();
 		Block block = world.getBlockAt(location);
 		
-		StructurePaintEvent e = new StructurePaintEvent(location, palette, nbt, buildKey, block);
+		StructurePaintEvent e = new StructurePaintEvent(location, palette, nbt, buildKey, block, uuid);
 		Bukkit.getPluginManager().callEvent(e);
 		if (!e.getCancelled()) {
 			
@@ -617,7 +623,5 @@ public class GStructure {
 		return entity;
 	}
 
-	public UUID getUuid() {
-		return uuid;
-	}
+
 }
