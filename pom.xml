@@ -34,7 +34,7 @@
 						<configuration>
 							<transformers>
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>me.addon.structure.GStructure</mainClass>
+									<mainClass>me.ulrich.structure.GStructure</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>
