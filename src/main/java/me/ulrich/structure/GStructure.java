@@ -219,15 +219,16 @@ public class GStructure {
 	
 	
 	
-	public void generate(Location location, UUID uuid) {
+	public void generate(Location location, UUID uuids) {
 		int buildKey = nextBuildKey++;
+		uuid = uuids;
 		
 		// generate blocks
 		for (int i = 0; i < blocks.size(); i++) {
 			GBlock block = blocks.get(i);
 			
 			Location blockLocation = location.clone().add(new Vector(block.getX(), block.getY(), block.getZ()));
-			paint(blockLocation, palette.get(block.getState()), block.getNBT(), buildKey, uuid);
+			paint(blockLocation, palette.get(block.getState()), block.getNBT(), buildKey, uuids);
 		}
 		// add entities
 		for (int i = 0; i < entities.size(); i++) {
