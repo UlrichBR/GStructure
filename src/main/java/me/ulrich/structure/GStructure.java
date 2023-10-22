@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -49,6 +50,8 @@ public class GStructure {
 	private static int nextBuildKey = 0;
 	
 	private int dataVersion;
+	
+	private UUID uuid;
 	
 	private List<GBlock> blocks;
 	
@@ -207,6 +210,10 @@ public class GStructure {
 	}
 	
 	public void generate(Location location) {
+		generate(location, UUID.randomUUID());
+	}
+	
+	public void generate(Location location, UUID uuid) {
 		int buildKey = nextBuildKey++;
 		
 		// generate blocks
@@ -608,5 +615,9 @@ public class GStructure {
 		entity.setCustomName(entityData.getCustomName());
 		entity.setCustomNameVisible(entityData.getCustomNameVisibleAsBoolean());
 		return entity;
+	}
+
+	public UUID getUuid() {
+		return uuid;
 	}
 }
